@@ -1,5 +1,5 @@
 host jumpgate
-hostname jumpgate@newcastle.edu.au
+hostname jumpgate.newcastle.edu.au
 user c3090731
 
 host rcg
