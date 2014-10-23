@@ -1,14 +1,15 @@
 host jumpgate
-hostname jumpgate.newcastle.edu.au
+hostname jumpegate@newcastle.edu.au
 user c3090731
-#IdentityFile /home/gareth/.ssh/id_rsa.pub
 
 host rcg
 hostname rcglogin
 user c3090731
-Proxycommand ssh -i /home/gareth/.ssh/id_rsa.pub -W %h:%p gds403@jumpgate.newcastle.edu.au
 
 host ampre
-hostname ampre.newcastle.edu.au
+hostname ampre
 user gareths
 
+host gds-desktop
+hostname scifferhome.dyndns.org
+user gareth
