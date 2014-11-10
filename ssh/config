@@ -1,15 +1,19 @@
 host jumpgate
 hostname jumpgate.newcastle.edu.au
 user c3090731
+ForwardX11 yes
 
 host rcg
 hostname rcglogin
 user c3090731
+ForwardX11 yes
 
 host ampre
 hostname ampre
 user gareths
+ForwardX11 yes
 
 host gds-desktop
 hostname scifferhome.dyndns.org
 user gareth
+ForwardX11 yes
