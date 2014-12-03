@@ -17,3 +17,13 @@ host gds-desktop
 hostname scifferhome.dyndns.org
 user gareth
 ForwardX11 yes
+
+host gds-uon
+hostname gsciffer-lx1
+user gds403
+ForwardX11 yes
+
+host gds-spl
+hostname 10.2.49.201
+user gareths
+ForwardX11 yes
