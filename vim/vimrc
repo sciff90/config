@@ -18,11 +18,8 @@ Plugin 'tpope/vim-pathogen'
 Plugin 'gmarik/vundle'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'kien/ctrlp.vim'
-"Plugin 'davidhalter/jedi-vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-scripts/AutomaticLaTexPlugin'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'aperezdc/vim-template'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Lokaltog/vim-distinguished'
@@ -32,7 +29,8 @@ Plugin 'synzox/ultisnips-fortran'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 
 
 " Better copy & paste
@@ -196,7 +194,7 @@ set wildignore+=*/coverage/*
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+"let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
