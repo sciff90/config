@@ -1,0 +1,50 @@
+%build pdf no convert to other format
+\documentclass[tikz]{standalone}
+
+%convert tikz to png requires -shell-escape commandline option
+%\documentclass[tikz,convert={outext=.png,density=150}]{standalone}
+
+%convert tikz to svg requires -shell-escape commandline option
+%\documentclass[crop,tikz,convert={outext=.svg,command=\unexpanded{pdf2svg \infile\space\outfile}},multi=false]{standalone}
+
+%preamble
+
+%inlcude tikz
+\usepackage{tikz}
+\usepackage{amsmath}
+%tikz libraries
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+%define a cartesian grid very thin blue lines
+\tikzset{help lines/.style=very thin}
+\tikzset{Gareth's grid/.style={help lines,color=#1!50},Gareth's
+grid/.default=blue}
+
+\begin{tikzpicture}
+    %define coordinate bounds
+  \def\xmin{-5}
+  \def\xmax{5}
+  \def\ymin{-5}
+  \def\ymax{5}
+
+  %define coordinates
+  \coordinate (origin) at (0,0);
+
+  %draw image bounds
+  \fill[white] (\xmin,\ymin)rectangle(\xmax,\ymax);
+  %draw axis
+  %x-axis
+  \draw[line width=0.5pt,white!40!black,>=latex,->]
+  (\xmin,0) -- (\xmax,0) node[anchor=north]{$x$};
+  %y-axis
+  \draw[line width=0.5pt,white!40!black,>=latex,->]
+  (0,\ymin) -- (0,\ymax) node[anchor=east]{$y$};
+
+\end{tikzpicture}
+
+
+\end{document}
+
+

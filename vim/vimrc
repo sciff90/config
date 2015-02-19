@@ -31,7 +31,7 @@ Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
-
+Plugin 'vim-latex/vim-latex'
 
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
@@ -61,7 +61,6 @@ let mapleader = ","
 noremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
 inoremap <C-n> :nohl<CR>
-
 
 " Quicksave command
 noremap <C-Z> :update<CR>
@@ -125,8 +124,7 @@ syntax on
 " Showing line numbers and length
 set number  " show line numbers
 set tw=79   " width of document (used by gd)
-set nowrap  " don't automatically wrap on load
-set fo-=t   " don't automatically wrap text when typing
+set formatoptions+=t
 set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
@@ -136,7 +134,7 @@ highlight ColorColumn ctermbg=233
 " easier formatting of paragraphs
 "" vmap Q gq
 "" nmap Q gqap
-
+set grepprg=grep\ -nH\ $*
 
 " Useful settings
 set history=700
@@ -220,7 +218,7 @@ map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-" Better navigating through omnicomplete option list
+" Better navigating thset grepprg=grep\ -nH\ $*rough omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 set completeopt=longest,menuone
 function! OmniPopup(action)
@@ -247,10 +245,10 @@ au BufRead,BufNewFile *.cu set filetype=cpp
 
 "Disable Arrow Keys
 
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+"noremap <Up> <NOP>
+"noremap <Down> <NOP>
+"noremap <Left> <NOP>
+"noremap <Right> <NOP>
 
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
@@ -259,3 +257,11 @@ nmap <silent> <leader>s :set spell!<CR>
 set spelllang=en_au
 
 set ai
+
+"vim-latex setup
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+set shellslash
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_MultipleCompileFormats='pdf, aux'
+:let g:Tex_CompileRule_pdf = 'pdflatex -shell-escape -src-specials -interaction=nonstopmode $*'
