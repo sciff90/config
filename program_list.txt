@@ -1,0 +1,15 @@
+dropbox
+dropbox-cli
+i3
+git
+imagemagick
+scrot
+rsync
+tree
+vim
+gvim
+zathura
+zathura-djvu
+jabref
+nemo
+terminator
