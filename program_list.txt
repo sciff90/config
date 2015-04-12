@@ -13,3 +13,4 @@ zathura-djvu
 jabref
 nemo
 terminator
+nitrogen
