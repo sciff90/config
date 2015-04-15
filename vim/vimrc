@@ -264,4 +264,9 @@ let g:tex_flavor='latex'
 set shellslash
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats='pdf, aux'
-:let g:Tex_CompileRule_pdf = 'pdflatex -shell-escape -src-specials -interaction=nonstopmode $*'
+let g:Tex_CompileRule_pdf = 'pdflatex -shell-escape -src-specials -interaction=nonstopmode %'
+let g:Tex_ViewRule_pdf = 'zathura'
+
+"Easy Motion search
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
