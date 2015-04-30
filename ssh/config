@@ -18,6 +18,16 @@ hostname scifferhome.dyndns.org
 user gareth
 ForwardX11 yes
 
+host gds-uon
+hostname gsciffer-lx1
+user gds403
+ForwardX11 yes
+
+host gds-spl
+hostname 10.2.49.201
+user gareths
+ForwardX11 yes
+
 host pi2
 user root
 ProxyCommand ssh -q gds-desktop nc -q0 192.168.1.107 22
