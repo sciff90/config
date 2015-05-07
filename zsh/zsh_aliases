@@ -1,0 +1,7 @@
+alias tree="tree -C"
+#screen resolutions
+alias proj_clone="xrandr --output VGA1 --mode 1024x768 --same-as LVDS1"
+alias proj_right="xrandr --output VGA1 --mode 1024x768 --right-of LVDS1"
+alias proj_left="xrandr --output VGA1 --mode 1024x768 --left-of LVDS1"
+alias mon_right="xrandr --output VGA1 --auto --right-of LVDS1"
+alias mon_left="xrandr --output VGA1 --auto --left-of LVDS1"
