@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<h1 id="syntastic-installation">Syntastic Installation</h1>
+<h2 id="html">HTML</h2>
+<h3 id="w3c-validator">w3c validator</h3>
+<p>Install the w3c validator from ubuntu sources:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get update
+<span class="kw">sudo</span> apt-get install apache2 w3c-markup-validator libapache2-mod-perl2</code></pre>
+<p>Then fix the link with:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> ln -s /etc/w3c/httpd.conf /etc/apache2/conf-enabled/w3c-markup-validator.conf</code></pre>
+<p>Fix the permission on <code>/usr/lib/cgi-bin</code> due to a problem in <code>/etc/apache2/conf-available/serve-cgi-bin.conf</code>. Copy the following into the file:</p>
+<pre><code>&lt;IfModule mod_alias.c&gt;
+    &lt;IfModule mod_cgi.c&gt;
+        Define ENABLE_USR_LIB_CGI_BIN
+    &lt;/IfModule&gt;
+
+    &lt;IfModule mod_cgid.c&gt;
+        Define ENABLE_USR_LIB_CGI_BIN
+    &lt;/IfModule&gt;
+
+    &lt;IfModule mod_perl.c&gt;
+        Define ENABLE_USR_LIB_CGI_BIN
+    &lt;/IfModule&gt;
+
+    &lt;IfDefine ENABLE_USR_LIB_CGI_BIN&gt;
+        ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+        &lt;Directory &quot;/usr/lib/cgi-bin&quot;&gt;
+            AllowOverride None
+            Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+            Require all granted
+        &lt;/Directory&gt;
+    &lt;/IfDefine&gt;
+&lt;/IfModule&gt;
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet</code></pre>
+<p>Once done create a symlink to the validator's html directory <code>/var/www/html</code>:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> ln -s /usr/share/w3c-markup-validator/html /var/www/html/w3c-validator</code></pre>
+<p>Then restart the apache2 service:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> service apache2 restart</code></pre>
+<p>Check it's working on <code>localhost</code>:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">http</span>://localhost/w3c-validator</code></pre>
+<h3 id="html5-validation">HTML5 Validation</h3>
+<p>Follow the guide <a href="https://github.com/tlvince/w3c-validator-guide">github</a> from <strong>&quot;Optional&quot;</strong> section. The following notes should be taken into account:</p>
+<ul>
+<li>The java version may be different to the guide</li>
+<li>To include environment variables with a <code>sudo</code> command append the <code>-E</code> option</li>
+</ul>
+<p>The validation should now work on <a href="http://localhost/w3c-validator">http://localhost/w3c-validator</a> and the HTML5 validator on <a href="http://localhost:8888">http://localhost:8888</a></p>
+<h2 id="css">Css</h2>
+<p>The following dependencies are required:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get update
+<span class="kw">sudo</span> apt-get install nodejs npm</code></pre>
+<p>Once nodejs is installed a symbolic link is needed to override the node command already on the system.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> ln -s /usr/bin/nodejs /usr/bin/node</code></pre>
+<p>Now a simple npm install:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> npm install -g csslint</code></pre>
+<h2 id="fortran">Fortran</h2>
+<p>All that is required is either the intel fortran compilers or gfortran:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get update
+<span class="kw">sudo</span> apt-get install gfortran</code></pre>
+<h2 id="c-and-c">C++ and C</h2>
+<p>All that is required is either the intel fortran compilers or gcc:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get update
+<span class="kw">sudo</span> apt-get install gcc</code></pre>
+<h2 id="python">Python</h2>
+<p>All that is required is the <code>pylint</code> package:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get update
+<span class="kw">sudo</span> apt-get install pylint</code></pre>
+<h2 id="latex">Latex</h2>
+<p>All that is required is the <code>chktex</code> package:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get update
+<span class="kw">sudo</span> apt-get install chktex</code></pre>
+<h2 id="matlab">Matlab</h2>
+<p>The <code>mlint</code> interpreter is found in the matlab install directory for the case of the default install this is found in <code>/usr/local/MATLAB/R2013a/bin/glnxa64</code> this path needs to be exported in either <code>~/.zshrc</code> or <code>~/.bashrc</code> depending on which shell is being used.</p>
+<h2 id="markdown">Markdown</h2>
+<p>The <code>mdl</code> package requires the <code>gem</code> package manager to be installed:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get update
+<span class="kw">sudo</span> apt-get gem</code></pre>
+<p>Then:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> gem install mdl</code></pre>
+</body>
+</html>

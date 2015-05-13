@@ -1,34 +1,70 @@
-" ============================================
-" Note to myself:
-" DO NOT USE <C-z> FOR SAVING WHEN PRESENTING!
-" ============================================
-
-
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 set nocompatible              " be iMproved
 filetype off                  " required!
 
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
+
+"plugins
+
+"Package management
 Plugin 'tpope/vim-pathogen'
 Plugin 'gmarik/vundle'
-Plugin 'Lokaltog/vim-powerline'
+
+"status bar
+Plugin 'bling/vim-airline'
+
+"file browsers
 Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+
+"auto completion and syntax checking
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+
+"navigation
 Plugin 'Lokaltog/vim-easymotion'
+
+"templates
 Plugin 'aperezdc/vim-template'
+
+"colors
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Lokaltog/vim-distinguished'
+
+"snippets
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'synzox/ultisnips-fortran'
+
+"Comments
 Plugin 'scrooloose/nerdcommenter'
+
+"tab mappings
 Plugin 'ervandew/supertab'
+
+"format tables
 Plugin 'godlygeek/tabular'
+
+"pandoc
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
+
+"latex
 Plugin 'vim-latex/vim-latex'
+
+"git
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+
+"tmux integration
+Plugin 'edkolev/tmuxline.vim'
+
+"surround plugin
+Plugin 'tpope/vim-surround'
 
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
@@ -37,16 +73,10 @@ Plugin 'vim-latex/vim-latex'
 set pastetoggle=<F2>
 set clipboard=unnamed
 
-
-
 " Mouse and backspace
 set mouse=a  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
 
-"Latex folding toggle
-""let g:atp_folding=1
-"let g:atp_folding_environments=1
-" Rebind <Leader> key
 " I like to have it here becuase it is easier to reach than the default and
 " it is next to ``m`` and ``n`` which I use for navigating between tabs.
 let mapleader = ","
@@ -64,11 +94,9 @@ noremap <C-Z> :update<CR>
 vnoremap <C-Z> <C-C>:update<CR>
 inoremap <C-Z> <C-O>:update<CR>
 
-
 " Quick quit command
 noremap <Leader>e :quit<CR>  " Quit current window
 noremap <Leader>E :qa!<CR>   " Quit all windows
-
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
 " Every unnecessary keystroke that can be saved is good for your health :)
@@ -77,37 +105,35 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-
 " easier moving between tabs
 map <Leader>n <esc>:tabprevious<CR>
 map <Leader>m <esc>:tabnext<CR>
 
-
 " map sort function to a key
 vnoremap <Leader>s :sort<CR>
 
-  "map ctrlp vim ctrlp to <c-p>
-  let g:ctrlp_map = '<c-p>'
-  let g:ctrlp_cmd = 'CtrlP'
+"toggle into normal mode from insert mode
+inoremap kj <Esc>
 
-"Map jj to esc in insert made
-":imap jj <Esc>
+"remove all trailing whitespace
+nnoremap <Leader>rtw :%s/\s\+$//e<CR>
+
+"map ctrlp vim ctrlp to <c-p>
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 " easier moving of code blocks
 " Try to go into visual mode (v), thenselect several lines of code here and
 " then press ``>`` several times.
 vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 
-
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
 
-
 " Color scheme
-" mkdir -p ~/.vim/colors && cd ~/.vim/colors
-" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
 set t_Co=256
 "color wombat256mod
 color distinguished
@@ -117,23 +143,16 @@ color distinguished
 filetype plugin indent on
 syntax on
 
-
-" Showing line numbers and length
+" Showing line numbers and length linebreaking options
 set number  " show line numbers
 set colorcolumn=80
 set wrap linebreak nolist
 
 highlight ColorColumn ctermbg=233
 
-" easier formatting of paragraphs
-"" vmap Q gq
-"" nmap Q gqap
-set grepprg=grep\ -nH\ $*
-
 " Useful settings
 set history=700
 set undolevels=700
-
 
 " Real programmers don't use TABs but spaces
 set tabstop=2
@@ -142,13 +161,11 @@ set shiftwidth=2
 set shiftround
 set expandtab
 
-
 " Make search case insensitive
 "set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-
 
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
@@ -156,43 +173,26 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-
-" Setup Pathogen to manage your plugins
-""mkdir -p ~/.vim/autoload ~/.vim/bundle
-""curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
-" Now you can install any plugin into a .vim/bundle/plugin-name/ folder
 call pathogen#infect()
 
-
-" Settings for vim-powerline
-" cd ~/.vim/bundle
-" git clone git://github.com/Lokaltog/vim-powerline.git
+" Settings for airline
 set laststatus=2
 
-
 " Settings for ctrlp
-" cd ~/.vim/bundle
-" git clone https://github.com/kien/ctrlp.vim.git
 let g:ctrlp_max_height = 30
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
-
-"M compatible with UltiSnips (using supertab)
+"YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
-"
+
 "" better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-
-map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
-au BufRead,BufNewFile *.cu set filetype=cpp 
 
 "Disable Arrow Keys
 
@@ -206,8 +206,6 @@ nmap <silent> <leader>s :set spell!<CR>
 
 " Set region to Australian English
 set spelllang=en_au
-
-set ai
 
 "vim-latex setup
 set grepprg=grep\ -nH\ $*
@@ -226,5 +224,33 @@ let g:Tex_ViewRule_pdf = 'zathura'
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 
-"toggle into normal mode
-inoremap kj <Esc>
+"Vim airline
+" Enable vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='powerlineish'
+
+"Syntastic Settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"define html checkers
+let g:syntastic_html_checkers = ['w3']
+let g:syntastic_html_w3_api ='http://localhost/w3c-validator/check'
+
+"define latex checker
+let g:syntastic_tex_checkers = ['chktex']
+
+"turn off ycm syntax checking
+let g:ycm_register_as_syntastic_checker = 0
+
+"map pandoc files for markdown syntax checking
+let g:syntastic_filetype_map = { "pandoc": "markdown" }
+
+highlight Normal ctermbg=none
