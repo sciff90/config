@@ -112,7 +112,7 @@ workspace  5     output LVDS1
 
 # switch to workspace
 bindsym $mod+6 workspace 6:
-bindsym $mod+7 workspace 7:;
+bindsym $mod+7 workspace 7:
 bindsym $mod+8 workspace 8:
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
@@ -142,8 +142,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system Switch user (u), System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
+    bindsym u exec --no-startup-id dm-tool switch-to-greeter, mode "default"
     bindsym l exec --no-startup-id $HOME/.i3/i3exit lock, mode "default"
     bindsym e exec --no-startup-id $HOME/.i3/i3exit logout, mode "default"
     bindsym s exec --no-startup-id $HOME/.i3/i3exit suspend, mode "default"
