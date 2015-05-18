@@ -99,7 +99,7 @@ exec --no-startup-id xrandr --output VGA1 --auto --right-of LVDS1
 
 #workspace names
 workspace "6:"  output VGA1
-workspace "7:"  output VGA1
+workspace "7:"  output VGA1
 workspace "8:"  output VGA1
 workspace  9     output VGA1
 workspace  10    output VGA1
@@ -112,7 +112,7 @@ workspace  5     output LVDS1
 
 # switch to workspace
 bindsym $mod+6 workspace 6:
-bindsym $mod+7 workspace 7:
+bindsym $mod+7 workspace 7:;
 bindsym $mod+8 workspace 8:
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
@@ -130,7 +130,7 @@ bindsym $mod+Shift+3 move container to workspace 3:
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6:
-bindsym $mod+Shift+7 move container to workspace 7:
+bindsym $mod+Shift+7 move container to workspace 7:
 bindsym $mod+Shift+8 move container to workspace 8:
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
@@ -209,8 +209,7 @@ exec --no-startup-id i3-msg 'workspace 2:; exec /usr/bin/terminator;'
 exec --no-startup-id i3-msg 'workspace 3:; exec /usr/bin/terminator -e "source $HOME/.zshrc && ranger";workspace 2:'
 
 exec --no-startup-id i3-msg 'workspace 6:; exec /usr/bin/google-chrome;'
-exec --no-startup-id i3-msg 'workspace 8:; exec mathematica'
-exec --no-startup-id i3-msg 'workspace 7:; exec /usr/local/bin/gvim;workspace 6:'
+exec --no-startup-id i3-msg 'workspace 7:; exec /usr/bin/terminator;workspace 6:'
 
 
 
