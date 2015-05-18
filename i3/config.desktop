@@ -205,7 +205,7 @@ bar {
 
 
 exec --no-startup-id i3-msg 'workspace 2:; exec /usr/bin/terminator;'
-exec --no-startup-id i3-msg 'workspace 3:; exec /usr/bin/nemo --no-desktop;workspace 2:'
+exec --no-startup-id i3-msg 'workspace 3:; exec /usr/bin/terminator -e "source $HOME/.zshrc && ranger";workspace 2:'
 
 exec --no-startup-id i3-msg 'workspace 6:; exec /usr/bin/google-chrome;'
 exec --no-startup-id i3-msg 'workspace 7:; exec /usr/local/bin/gvim;workspace 6:'
