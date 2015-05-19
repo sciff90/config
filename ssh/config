@@ -1,8 +1,4 @@
-host jumpgate
-hostname jumpgate.newcastle.edu.au
-user c3090731
-ForwardX11 yes
-
+#On University Network
 host rcg
 hostname rcglogin
 user c3090731
@@ -13,21 +9,61 @@ hostname ampre
 user gareths
 ForwardX11 yes
 
-host gds-desktop
-hostname scifferhome.dyndns.org
-user gareth
-ForwardX11 yes
-
 host gds-uon
 hostname gsciffer-lx1
 user gds403
 ForwardX11 yes
 
-host gds-spl
-hostname 10.2.49.201
-user gareths
+#University jumpgate
+host jumpgate
+hostname jumpgate.newcastle.edu.au
+user c3090731
 ForwardX11 yes
 
-host pi2
+#Synology Box
+host synology-root
+hostname scifferhome.dyndns.org
 user root
-ProxyCommand ssh -q gds-desktop nc -q0 192.168.1.107 22
+ForwardX11 yes
+
+host synology
+hostname scifferhome.dyndns.org
+user gareth
+#ForwardX11 yes
+
+#Home Desktops
+host gds-desktop
+user gareth
+ForwardX11 yes
+ProxyCommand ssh -q synology /opt/bin/nc -q0 192.168.1.101 22
+
+host als-desktop
+user gareth
+ForwardX11 yes
+ProxyCommand ssh -q synology /opt/bin/nc -q0 192.168.1.102 22
+
+host bks-desktop
+user gareth
+ForwardX11 yes
+ProxyCommand ssh -q synology /opt/bin/nc -q0 192.168.1.103 22
+
+host sds-desktop
+user gareth
+ForwardX11 yes
+ProxyCommand ssh -q synology /opt/bin/nc -q0 192.168.1.104 22
+
+host afs-desktop
+user gareth
+ForwardX11 yes
+ProxyCommand ssh -q synology /opt/bin/nc -q0 192.168.1.105 22
+
+#Raspberry Pis
+host pi2
+user gareth
+ProxyCommand ssh -q synology /opt/bin/nc -q0 192.168.1.107 22
+
+#Laptop Home Network
+host gds-laptop
+user gareth
+ForwardX11 yes
+ProxyCommand ssh -q synology /opt/bin/nc -q0 192.168.1.122 22
