@@ -112,7 +112,7 @@ map <Leader>m <esc>:tabnext<CR>
 vnoremap <Leader>s :sort<CR>
 
 "toggle into normal mode from insert mode
-inoremap kj <Esc>
+inoremap jk <Esc>
 
 "remove all trailing whitespace
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
@@ -267,3 +267,7 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+vnoremap <up> <nop>
+vnoremap <down> <nop>
+vnoremap <left> <nop>
+vnoremap <right> <nop>
