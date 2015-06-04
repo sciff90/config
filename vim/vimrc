@@ -68,6 +68,9 @@ Plugin 'tpope/vim-surround'
 "around plugin
 Plugin 'jiangmiao/auto-pairs'
 
+"taglist
+Plugin 'vim-scripts/taglist.vim'
+
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
@@ -195,7 +198,7 @@ let g:ycm_key_list_previous_completion = ['<C-p>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 "" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsExpandTrigger = "<C-j>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
@@ -254,10 +257,15 @@ let g:syntastic_cpp_compiler = "g++"
 let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:syntastic_cpp_include_dirs = ['inc']
 let g:syntastic_c_check_header = 1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 "map pandoc files for markdown syntax checking
 let g:syntastic_filetype_map = { "pandoc": "markdown" }
 
+"map taglist togle to <leader-t>
+map <Leader>t <esc>:TlistToggle<CR>
 
 highlight Normal ctermbg=none
 
