@@ -71,6 +71,13 @@ Plugin 'jiangmiao/auto-pairs'
 "taglist
 Plugin 'vim-scripts/taglist.vim'
 
+"taglist
+Plugin 'tmhedberg/SimpylFold'
+
+"gists plugin
+Plugin 'mattn/webapi-vim'
+Plugin 'mattn/gist-vim'
+
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
@@ -185,6 +192,8 @@ call pathogen#infect()
 
 " Settings for airline
 set laststatus=2
+set showtabline=2
+set guioptions-=e
 
 " Settings for ctrlp
 let g:ctrlp_max_height = 30
@@ -249,6 +258,10 @@ let g:syntastic_html_w3_api ='http://localhost/w3c-validator/check'
 "define latex checker
 let g:syntastic_tex_checkers = ['chktex']
 
+"define python syntatsic checker
+let g:syntastic_python_python_exe = 'python3'
+let g:syntastic_python_checkers = ['pylint','flake8']
+
 "turn off ycm syntax checking
 let g:ycm_register_as_syntastic_checker = 0
 
@@ -266,6 +279,14 @@ let g:syntastic_filetype_map = { "pandoc": "markdown" }
 
 "map taglist togle to <leader-t>
 map <Leader>t <esc>:TlistToggle<CR>
+
+"map remove trailing whitespace
+nnoremap <silent> <Leader>rtw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+
+"map insert breakpoint to <leader> b
+au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
 
 highlight Normal ctermbg=none
 
