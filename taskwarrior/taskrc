@@ -46,3 +46,9 @@ dateformat.report=d/m/Y
 dateformat.annotation=d/m/Y
 
 editor=vim
+
+# Custom reoprt for inbox
+report.in.columns           = id,description
+report.in.description       = Inbox
+report.in.filter            = status:pending limit:page (+in)
+report.in.labels            = ID,Description

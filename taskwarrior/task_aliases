@@ -1,0 +1,11 @@
+#add to in list
+alias in='task add +in'
+
+#tickle function
+tickle () {
+    deadline=$1
+    shift
+    in +tickle wait:$deadline $@
+
+}
+alias tick=tickle
