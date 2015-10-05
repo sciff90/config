@@ -4,7 +4,7 @@ set nocompatible              " be iMproved
 filetype off                  " required!
 
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
 
 
 "plugins
@@ -79,12 +79,16 @@ Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 
 "neomake
-Plugin 'benekastah/neomake'
+Plugin 'benekastah/neomake'	
 
+"javascript
+Plugin 'marijnh/tern_for_vim'
+
+call vundle#end()
+filetype plugin indent on                  " required!
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
-
 set pastetoggle=<F2>
 set clipboard=unnamed
 
@@ -204,16 +208,15 @@ set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
-"YCM compatible with UltiSnips (using supertab)
+" make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>']
 let g:ycm_key_list_previous_completion = ['<C-p>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+"let g:SuperTabDefaultCompletionType = '<C-j>'
 
-"" better key bindings for UltiSnipsExpandTrigger
+" better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<C-j>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
 
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
@@ -228,7 +231,10 @@ set shellslash
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats='pdf, aux'
 let g:Tex_CompileRule_pdf = 'pdflatex -shell-escape -src-specials -interaction=nonstopmode %'
-let g:Tex_ViewRule_pdf = 'zathura'
+let g:Tex_ViewRule_pdf = 'zathura "$@" 2>/dev/null'
+" latex auto linebreaks
+au BufRead,BufNewFile *.tex setlocal textwidth=79
+au BufRead,BufNewFile *.tex setlocal formatoptions+=a
 
 "Latex folding toggle
 "let g:atp_folding=1
