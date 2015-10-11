@@ -6,7 +6,6 @@ filetype off                  " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-
 "plugins
 
 "Package management
@@ -53,7 +52,7 @@ Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 
 "latex
-Plugin 'vim-latex/vim-latex'
+"Plugin 'vim-latex/vim-latex'
 
 "git
 Plugin 'airblade/vim-gitgutter'
@@ -83,6 +82,9 @@ Plugin 'benekastah/neomake'
 
 "javascript
 Plugin 'marijnh/tern_for_vim'
+
+"vimtex
+Plugin 'lervag/vimtex'
 
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
@@ -131,7 +133,7 @@ map <Leader>m <esc>:tabnext<CR>
 vnoremap <Leader>s :sort<CR>
 
 "toggle into normal mode from insert mode
-inoremap jk <Esc>
+"inoremap jk <Esc>
 
 "remove all trailing whitespace
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
@@ -214,9 +216,8 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 
 "" better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<C-j>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
@@ -224,19 +225,21 @@ nmap <silent> <leader>s :set spell!<CR>
 " Set region to Australian English
 set spelllang=en_au
 
-"vim-latex setup
+"vimtex setup
 " set textwidth for file type
 au BufRead,BufNewFile *.tex setlocal textwidth=79
 " set spell check for tex files
 autocmd FileType tex setlocal spell
-
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
-set shellslash
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_MultipleCompileFormats='pdf, aux'
-let g:Tex_CompileRule_pdf = 'pdflatex -shell-escape -src-specials -interaction=nonstopmode %'
-let g:Tex_ViewRule_pdf = 'zathura'
+" vimtex setup
+" autocomplete
+if !exists('g:ycm_semantic_triggers')
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex = [
+      \ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*, ?)*'
+      \ ]
+" use zathura for pdf viewer
+let g:vimtex_view_method = 'zathura'
 
 "Easy Motion search
 map  / <Plug>(easymotion-sn)
