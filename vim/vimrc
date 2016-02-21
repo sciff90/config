@@ -13,15 +13,17 @@ Plugin 'tpope/vim-pathogen'
 Plugin 'gmarik/vundle'
 
 "status bar
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 "file browsers
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 
 "auto completion and syntax checking
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'davidhalter/jedi-vim'
 
 "navigation
 Plugin 'Lokaltog/vim-easymotion'
@@ -81,7 +83,7 @@ Plugin 'mattn/gist-vim'
 Plugin 'benekastah/neomake'
 
 "javascript
-Plugin 'marijnh/tern_for_vim'
+"Plugin 'marijnh/tern_for_vim'
 
 "vimtex
 Plugin 'lervag/vimtex'
@@ -161,6 +163,8 @@ color distinguished
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
 filetype plugin indent on
+set omnifunc=syntaxcomplete#Complete
+let g:neocomplete#enable_at_startup = 1
 syntax on
 
 " Showing line numbers and length linebreaking options
@@ -209,11 +213,6 @@ set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
-"YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>']
-let g:ycm_key_list_previous_completion = ['<C-p>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
 "" better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<C-j>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
@@ -232,14 +231,24 @@ au BufRead,BufNewFile *.tex setlocal textwidth=79
 autocmd FileType tex setlocal spell
 " vimtex setup
 " autocomplete
-if !exists('g:ycm_semantic_triggers')
-  let g:ycm_semantic_triggers = {}
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:ycm_semantic_triggers.tex = [
-      \ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*, ?)*'
-      \ ]
+let g:neocomplete#sources#omni#input_patterns.tex =
+      \ '\v\\%('
+      \ . '\a*cite\a*%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+      \ . '|\a*ref%(\s*\{[^}]*|range\s*\{[^,}]*%(\{\})?)'
+      \ . '|includegraphics\*?%(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+      \ . '|%(include%(only)?|input)\s*\{[^}]*'
+      \ . ')'
+
 " use zathura for pdf viewer
 let g:vimtex_view_method = 'zathura'
+
+" enable folding vimtex
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_manual = 1
+let g:vimtex_complete_recursive_bib = 1
 
 "Easy Motion search
 map  / <Plug>(easymotion-sn)
@@ -250,6 +259,8 @@ omap / <Plug>(easymotion-tn)
 let g:airline#extensions#tabline#enabled = 0
 let g:airline_powerline_fonts = 0
 let g:airline_theme='powerlineish'
+"let g:airline_theme='wombat'
+"let g:airline_theme='distinguished'
 
 "Syntastic Settings
 set statusline+=%#warningmsg#
@@ -272,17 +283,11 @@ let g:syntastic_tex_checkers = ['chktex']
 let g:syntastic_python_python_exe = 'python3'
 let g:syntastic_python_checkers = ['pylint','flake8']
 
-"turn off ycm syntax checking
-let g:ycm_register_as_syntastic_checker = 0
-
 "cpp
 let g:syntastic_cpp_compiler = "g++"
 let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 let g:syntastic_cpp_include_dirs = ['inc']
 let g:syntastic_c_check_header = 1
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
 
 "map pandoc files for markdown syntax checking
 let g:syntastic_filetype_map = { "pandoc": "markdown" }
@@ -301,7 +306,6 @@ nnoremap <silent> <Leader>rtw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:no
 au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
 
-highlight Normal ctermbg=none
 
 "disable arrow keys
 nnoremap <up> <nop>
@@ -349,3 +353,23 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let tmuxline_powerline_separators=0
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+filetype plugin indent on
+syntax enable
+let g:neocomplete#enable_at_startup = 1
+
+autocmd FileType python setlocal omnifunc=jedi#completions
+  let g:jedi#completions_enabled = 0
+  let g:jedi#auto_vim_configuration = 0
+  let g:jedi#smart_auto_mappings = 0
+  if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+autocmd FileType python setlocal completeopt-=preview
+highlight Normal ctermbg=none
