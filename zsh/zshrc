@@ -45,11 +45,11 @@ ZSH_THEME="intheloop"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git django gem man pip tmux tmuxinator ubuntu virtualenv virtualenvwrapper colored-man-pages)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/MATLAB/MATLAB_Production_Server/R2013a/bin:/usr/local/cuda-6.5/bin:/home/gareth/sma/sbf_spot/bin/Release"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -78,5 +78,14 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-source $HOME/.zsh_aliases
+
+# ruby binaries
+export PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin
+
+# tmuxinator environment variables
+export EDITOR=vim
+export SHELL=zsh
+
+# source intel compiler and mpi vars
+source /opt/intel/bin/compilervars.sh intel64
+source /opt/intel/impi/5.1.3.181/bin64/mpivars.sh intel64
