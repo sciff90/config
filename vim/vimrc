@@ -5,6 +5,9 @@ call plug#begin('~/.vim/plugged')
 " vim sensible
 Plug 'tpope/vim-sensible'
 
+" vim commentary
+Plug 'tpope/vim-commentary'
+
 "status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -49,6 +52,9 @@ Plug 'tmhedberg/SimpylFold'
 
 "vimtex
 Plug 'lervag/vimtex'
+
+"syntastic
+Plug 'scrooloose/syntastic' | Plug 'Rip-Rip/clang_complete'
 
 call plug#end()
 
@@ -258,3 +264,33 @@ autocmd FileType python setlocal omnifunc=jedi#completions
   let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 autocmd FileType python setlocal completeopt-=preview
 highlight Normal ctermbg=none
+
+" syntastic setup
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" c++ completion
+if !exists('g:neocomplete#force_omni_input_patterns')
+	  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.c =
+			\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:neocomplete#force_omni_input_patterns.cpp =
+			\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.objc =
+			\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+let g:neocomplete#force_omni_input_patterns.objcpp =
+			\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_omnicppcomplete_compliance = 0
+let g:clang_make_default_keymappings = 0
+"let g:clang_use_library = 1
+autocmd CompleteDone * pclose
