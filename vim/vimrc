@@ -104,6 +104,7 @@ color distinguished
 filetype plugin indent on
 set omnifunc=syntaxcomplete#Complete
 let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#auto_completion_start_length = 1
 syntax on
 
 " showing line numbers and length linebreaking options
@@ -292,5 +293,4 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_omnicppcomplete_compliance = 0
 let g:clang_make_default_keymappings = 0
-"let g:clang_use_library = 1
 autocmd CompleteDone * pclose
