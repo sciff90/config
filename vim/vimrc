@@ -56,6 +56,9 @@ Plug 'lervag/vimtex'
 "syntastic
 Plug 'scrooloose/syntastic' | Plug 'Rip-Rip/clang_complete'
 
+"target.vim
+Plug 'wellle/targets.vim'
+
 call plug#end()
 
 " better copy & paste
@@ -279,16 +282,16 @@ let g:syntastic_check_on_wq = 0
 
 " c++ completion
 if !exists('g:neocomplete#force_omni_input_patterns')
-	  let g:neocomplete#force_omni_input_patterns = {}
+  let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.c =
-			\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+  \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
 let g:neocomplete#force_omni_input_patterns.cpp =
-			\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+  \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 let g:neocomplete#force_omni_input_patterns.objc =
-			\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+  \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
 let g:neocomplete#force_omni_input_patterns.objcpp =
-			\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+  \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_omnicppcomplete_compliance = 0
