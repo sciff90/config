@@ -2,6 +2,9 @@
 "plugins
 call plug#begin('~/.vim/plugged')
 
+" repeat commands
+Plug 'tpope/vim-repeat'
+
 " vim sensible
 Plug 'tpope/vim-sensible'
 
@@ -21,6 +24,7 @@ Plug 'davidhalter/jedi-vim'
 
 "navigation
 Plug 'Lokaltog/vim-easymotion'
+Plug 'wincent/scalpel'
 
 "colors
 Plug 'flazz/vim-colorschemes'
@@ -40,6 +44,7 @@ Plug 'tpope/vim-fugitive'
 
 "tmux integration
 Plug 'edkolev/tmuxline.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 "surround plugin
 Plug 'tpope/vim-surround'
@@ -58,6 +63,9 @@ Plug 'scrooloose/syntastic' | Plug 'Rip-Rip/clang_complete'
 
 "target.vim
 Plug 'wellle/targets.vim'
+
+" sound effects
+Plug 'teddywing/auditory.vim'
 
 call plug#end()
 
@@ -188,7 +196,9 @@ let g:vimtex_view_method = 'zathura'
 " enable folding vimtex
 let g:vimtex_fold_enabled = 1
 let g:vimtex_fold_manual = 1
-let g:vimtex_complete_recursive_bib = 1
+
+" latexmk
+let g:vimtex_latexmk_build_dir='build'
 
 "easy motion search
 map  / <Plug>(easymotion-sn)
@@ -266,7 +276,6 @@ autocmd FileType python setlocal omnifunc=jedi#completions
         let g:neocomplete#force_omni_input_patterns = {}
   endif
   let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-autocmd FileType python setlocal completeopt-=preview
 highlight Normal ctermbg=none
 
 " syntastic setup
@@ -279,6 +288,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_disabled_filetypes=['lacheck']
 
 " c++ completion
 if !exists('g:neocomplete#force_omni_input_patterns')
@@ -296,4 +306,10 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_omnicppcomplete_compliance = 0
 let g:clang_make_default_keymappings = 0
-autocmd CompleteDone * pclose
+" autocmd CompleteDone * pclose
+" comments for matlab
+autocmd FileType matlab setlocal commentstring=%\ %s
+
+" spelling highlighting
+hi SpellBad cterm=bold,italic ctermfg=red
+hi SpellCap cterm=bold,italic ctermfg=blue
